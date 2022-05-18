@@ -11,9 +11,9 @@ import (
 type Config struct {
 	IsDebug *bool `env:"IS_DEBUG,required" envDefault:"true"`
 	Listen  struct {
-		Type   string `env:"TYPE" envDefault:"port"`
-		BindIP string `env:"BIND_IP" envDefault:"0.0.0.0"`
-		Port   string `env:"PORT" envDefault:"8080"`
+		Type   string `env:"LISTEN_TYPE" envDefault:"port"`
+		BindIP string `env:"LISTEN_IP" envDefault:"0.0.0.0"`
+		Port   string `env:"LISTEN_PORT" envDefault:"8080"`
 	}
 }
 

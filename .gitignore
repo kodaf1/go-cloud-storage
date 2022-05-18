@@ -2,3 +2,4 @@ logs
 .idea
 .vscode
 app.build
+.env
