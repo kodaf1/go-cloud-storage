@@ -10,10 +10,20 @@ import (
 
 type Config struct {
 	IsDebug *bool `env:"IS_DEBUG,required" envDefault:"true"`
-	Listen  struct {
+
+	Listen struct {
 		Type   string `env:"LISTEN_TYPE" envDefault:"port"`
 		BindIP string `env:"LISTEN_IP" envDefault:"0.0.0.0"`
 		Port   string `env:"LISTEN_PORT" envDefault:"8080"`
+	}
+
+	MongoDB struct {
+		Host     string `env:"MONGO_HOST"`
+		Port     string `env:"MONGO_PORT"`
+		Username string `env:"MONGO_USERNAME"`
+		Passowrd string `env:"MONGO_PASSWORD"`
+		AuthDB   string `env:"MONGO_AUTH_DB"`
+		Database string `env:"MONGO_DATABASE"`
 	}
 }
 
