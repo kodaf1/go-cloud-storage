@@ -20,7 +20,7 @@ require (
 
 require (
 	github.com/caarlos0/env/v6 v6.9.2
-	github.com/joho/godotenv v1.4.0 // indirect
+	github.com/joho/godotenv v1.4.0
 	github.com/julienschmidt/httprouter v1.3.0
 	go.mongodb.org/mongo-driver v1.9.1
 	golang.org/x/sys v0.0.0-20220513210249-45d2b4557a2a // indirect
