@@ -44,7 +44,7 @@ func main() {
 	}
 
 	logger.Info("user composite initializing")
-	userComposite, err := composites.NewUserComposite(mongoDBC)
+	userComposite, err := composites.NewFileComposite(mongoDBC)
 	if err != nil {
 		logger.Fatal("user composite failed")
 	}
