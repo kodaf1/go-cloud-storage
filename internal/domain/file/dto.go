@@ -1,5 +1,11 @@
 package file
 
-type UploadFileDTO struct {
+import (
+	"io"
+)
 
+type UploadFileDTO struct {
+	Name   string
+	Size   int64
+	Reader io.Reader
 }

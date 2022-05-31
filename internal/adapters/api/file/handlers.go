@@ -22,27 +22,67 @@ func NewHandler(service file.Service) api.Handler {
 }
 
 func (h *handler) Register(router *httprouter.Router) {
-	router.GET("/file/:uuid", h.GetFile)
+	router.GET("/files/:uuid", h.GetFileInfo)
+	router.POST("/files", h.UploadFile)
 }
 
-func (h *handler) GetFile(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
-	file, err := h.fileService.GetFile(context.Background(), params.ByName("uuid"))
-	if err != nil {
+func (h *handler) GetFileInfo(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+	w.Header().Set("Content-Type", "form/json")
+
+	fileInfo := h.fileService.GetFile(context.Background(), params.ByName("uuid"))
+	if fileInfo == nil {
 		logging.GetLogger().Debug("file not found")
 		http.Error(w, "Not Found", 404)
+		return
 	}
 
-	jsonFile, err := json.Marshal(file)
+	fileJson, err := json.Marshal(fileInfo)
 	if err != nil {
-		logging.GetLogger().Error("can't marshal file")
+		logging.GetLogger().Error("can't marshal fileInfo")
 		http.Error(w, "Server Internal Error", 500)
+		return
 	}
 
 	w.WriteHeader(200)
-	fmt.Fprint(w, jsonFile)
-	logging.GetLogger().Debug("file returned")
+	fmt.Fprint(w, string(fileJson))
+	logging.GetLogger().Debug("fileInfo returned")
 }
 
-func (h *handler) UploadFile(w http.ResponseWriter, r *http.Request) {
-	panic("implement me")
+func (h *handler) UploadFile(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+	w.Header().Set("Content-Type", "application/json")
+
+	err := r.ParseMultipartForm(32 << 20)
+	if err != nil {
+		w.WriteHeader(400)
+		fmt.Fprint(w, "Incorrect data")
+		return
+	}
+
+	files, ok := r.MultipartForm.File["file"]
+	if !ok || len(files) == 0 {
+		w.WriteHeader(400)
+		fmt.Fprint(w, "Incorrect data")
+		return
+	}
+
+	fileInfo := files[0]
+	fileReader, err := fileInfo.Open()
+
+	dto := file.UploadFileDTO{
+		Name:   fileInfo.Filename,
+		Size:   fileInfo.Size,
+		Reader: fileReader,
+	}
+
+	fileObject, err := h.fileService.UploadFile(context.Background(), &dto)
+
+	fileJson, err := json.Marshal(fileObject)
+	if err != nil {
+		logging.GetLogger().Error("can't marshal fileInfo")
+		http.Error(w, "Server Internal Error", 500)
+		return
+	}
+
+	fmt.Fprint(w, string(fileJson))
+	logging.GetLogger().Debug("file uploaded")
 }
