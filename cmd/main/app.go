@@ -43,8 +43,10 @@ func main() {
 		logger.Fatal("mongodb composite failed")
 	}
 
+	s3C := composites.NewS3Composite(cfg.S3.Endpoint, cfg.S3.Region)
+
 	logger.Info("user composite initializing")
-	userComposite, err := composites.NewFileComposite(mongoDBC)
+	userComposite, err := composites.NewFileComposite(mongoDBC, s3C)
 	if err != nil {
 		logger.Fatal("user composite failed")
 	}

@@ -1,6 +1,9 @@
 package file
 
-import "context"
+import (
+	"context"
+	"io"
+)
 
 type Service interface {
 	UploadFile(ctx context.Context, dto *UploadFileDTO) (*File, error)
@@ -12,4 +15,8 @@ type Storage interface {
 	GetAll(limit, offset int) []*File
 	Create(user *File) *File
 	Delete(user *File) error
+}
+
+type S3 interface {
+	PutObject(file io.Reader) error
 }

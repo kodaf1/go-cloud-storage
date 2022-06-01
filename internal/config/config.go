@@ -25,6 +25,11 @@ type Config struct {
 		AuthDB   string `env:"MONGO_AUTH_DB"`
 		Database string `env:"MONGO_DATABASE"`
 	}
+
+	S3 struct {
+		Endpoint string `env:"S3_ENDPOINT"`
+		Region   string `env:"S3_REGION"`
+	}
 }
 
 var instance *Config
