@@ -2,7 +2,7 @@ package file
 
 import (
 	"context"
-	"io"
+	"mime/multipart"
 )
 
 type Service interface {
@@ -18,5 +18,6 @@ type Storage interface {
 }
 
 type S3 interface {
-	PutObject(file io.Reader) error
+	GetBucket() string
+	PutObject(ctx context.Context, file *multipart.FileHeader, filename string) error
 }

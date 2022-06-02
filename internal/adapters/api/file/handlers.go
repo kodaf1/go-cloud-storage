@@ -66,15 +66,17 @@ func (h *handler) UploadFile(w http.ResponseWriter, r *http.Request, params http
 	}
 
 	fileInfo := files[0]
-	fileReader, err := fileInfo.Open()
 
 	dto := file.UploadFileDTO{
-		Name:   fileInfo.Filename,
-		Size:   fileInfo.Size,
-		Reader: fileReader,
+		File: fileInfo,
 	}
 
 	fileObject, err := h.fileService.UploadFile(context.Background(), &dto)
+	if err != nil {
+		logging.GetLogger().Errorf("file upload error: %v", err)
+		http.Error(w, "Server Internal Error", 500)
+		return
+	}
 
 	fileJson, err := json.Marshal(fileObject)
 	if err != nil {

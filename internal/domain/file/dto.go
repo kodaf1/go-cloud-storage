@@ -1,11 +1,7 @@
 package file
 
-import (
-	"io"
-)
+import "mime/multipart"
 
 type UploadFileDTO struct {
-	Name   string
-	Size   int64
-	Reader io.Reader
+	File *multipart.FileHeader
 }

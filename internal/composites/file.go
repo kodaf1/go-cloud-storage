@@ -10,16 +10,16 @@ import (
 
 type FileComposite struct {
 	Storage file.Storage
+	S3      file.S3
 	Service file.Service
 	Handler api.Handler
-	S3      file.S3
 }
 
 func NewFileComposite(mongoComposite *MongoDBComposite, s3Composite *S3Composite) (*FileComposite, error) {
 	storage := file2.NewStorage(mongoComposite.db)
-	service := file.NewService(storage)
+	s3 := file4.NewS3(s3Composite.instance, s3Composite.bucket)
+	service := file.NewService(storage, s3)
 	handler := file3.NewHandler(service)
-	s3 := file4.NewS3(s3Composite.instance)
 	return &FileComposite{
 		Storage: storage,
 		Service: service,

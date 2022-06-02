@@ -27,8 +27,12 @@ type Config struct {
 	}
 
 	S3 struct {
-		Endpoint string `env:"S3_ENDPOINT"`
-		Region   string `env:"S3_REGION"`
+		AccessKey    string `env:"S3_ACCESS_KEY"`
+		SecretKey    string `env:"S3_SECRET_KEY"`
+		SessionToken string `env:"S3_SESSION_TOKEN"`
+		Endpoint     string `env:"S3_ENDPOINT"`
+		Region       string `env:"S3_REGION"`
+		Bucket       string `env:"S3_BUCKET"`
 	}
 }
 
