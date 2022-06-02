@@ -29,10 +29,14 @@ func (h *handler) Register(router *httprouter.Router) {
 func (h *handler) GetFileInfo(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	w.Header().Set("Content-Type", "form/json")
 
-	fileInfo := h.fileService.GetFile(context.Background(), params.ByName("uuid"))
-	if fileInfo == nil {
-		logging.GetLogger().Debug("file not found")
-		http.Error(w, "Not Found", 404)
+	fileInfo, err := h.fileService.GetFile(context.Background(), params.ByName("uuid"))
+	if err != nil {
+		logging.GetLogger().Debug(err.Error())
+		if err.Error() == "not found" {
+			http.Error(w, "Not found", 404)
+			return
+		}
+		http.Error(w, "Internal server error", 500)
 		return
 	}
 

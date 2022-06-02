@@ -18,12 +18,13 @@ type Config struct {
 	}
 
 	MongoDB struct {
-		Host     string `env:"MONGO_HOST"`
-		Port     string `env:"MONGO_PORT"`
-		Username string `env:"MONGO_USERNAME"`
-		Passowrd string `env:"MONGO_PASSWORD"`
-		AuthDB   string `env:"MONGO_AUTH_DB"`
-		Database string `env:"MONGO_DATABASE"`
+		Host            string `env:"MONGO_HOST"`
+		Port            string `env:"MONGO_PORT"`
+		Username        string `env:"MONGO_USERNAME"`
+		Password        string `env:"MONGO_PASSWORD"`
+		AuthDB          string `env:"MONGO_AUTH_DB"`
+		Database        string `env:"MONGO_DATABASE"`
+		FilesCollection string `env:"MONGO_FILES_COLLECTION"`
 	}
 
 	S3 struct {

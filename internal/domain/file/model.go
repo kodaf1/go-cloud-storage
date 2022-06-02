@@ -1,8 +1,7 @@
 package file
 
 type File struct {
-	UUID     string `json:"uuid"`
-	FileName string `json:"filename"`
-	MimeType string `json:"mime_type"`
-	Size     int    `json:"size"`
+	UUID     string `json:"uuid" bson:"_id,omitempty"`
+	FileName string `json:"filename" bson:"file_name"`
+	Size     int64  `json:"size" bson:"size"`
 }

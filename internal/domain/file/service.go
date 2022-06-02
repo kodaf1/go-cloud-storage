@@ -21,9 +21,15 @@ func (s *service) UploadFile(ctx context.Context, dto *UploadFileDTO) (*File, er
 	if err != nil {
 		return nil, err
 	}
-	return nil, nil
+
+	file := &File{
+		FileName: uid,
+		Size:     dto.File.Size,
+	}
+
+	return s.storage.Create(file)
 }
 
-func (s *service) GetFile(ctx context.Context, uuid string) *File {
+func (s *service) GetFile(ctx context.Context, uuid string) (*File, error) {
 	return s.storage.GetOne(uuid)
 }

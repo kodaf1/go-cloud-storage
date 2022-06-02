@@ -35,7 +35,7 @@ func main() {
 		cfg.MongoDB.Host,
 		cfg.MongoDB.Port,
 		cfg.MongoDB.Username,
-		cfg.MongoDB.Passowrd,
+		cfg.MongoDB.Password,
 		cfg.MongoDB.Database,
 		cfg.MongoDB.AuthDB,
 	)
@@ -54,7 +54,7 @@ func main() {
 	)
 
 	logger.Info("user composite initializing")
-	userComposite, err := composites.NewFileComposite(mongoDBC, s3C)
+	userComposite, err := composites.NewFileComposite(mongoDBC, s3C, cfg.MongoDB.FilesCollection)
 	if err != nil {
 		logger.Fatal("user composite failed")
 	}

@@ -15,8 +15,8 @@ type FileComposite struct {
 	Handler api.Handler
 }
 
-func NewFileComposite(mongoComposite *MongoDBComposite, s3Composite *S3Composite) (*FileComposite, error) {
-	storage := file2.NewStorage(mongoComposite.db)
+func NewFileComposite(mongoComposite *MongoDBComposite, s3Composite *S3Composite, collection string) (*FileComposite, error) {
+	storage := file2.NewStorage(mongoComposite.db, collection)
 	s3 := file4.NewS3(s3Composite.instance, s3Composite.bucket)
 	service := file.NewService(storage, s3)
 	handler := file3.NewHandler(service)
