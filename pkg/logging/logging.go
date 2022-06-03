@@ -35,14 +35,14 @@ func (hook *writerHook) Levels() []logrus.Level {
 	return hook.LogLevels
 }
 
-var e *logrus.Entry
+var entry *logrus.Entry
 
 type Logger struct {
 	*logrus.Entry
 }
 
 func GetLogger() Logger {
-	return Logger{e}
+	return Logger{entry}
 }
 
 func (l *Logger) GetLoggerWithField(k string, v interface{}) Logger {
@@ -81,5 +81,5 @@ func init() {
 
 	l.SetLevel(logrus.TraceLevel)
 
-	e = logrus.NewEntry(l)
+	entry = logrus.NewEntry(l)
 }
