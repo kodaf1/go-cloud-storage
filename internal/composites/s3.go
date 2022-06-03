@@ -9,11 +9,11 @@ import (
 )
 
 type S3Composite struct {
-	instance *s3.S3
-	bucket   string
+	instance    *s3.S3
+	filesBucket string
 }
 
-func NewS3Composite(accessKey, secretKey, sessionToken, endpointURL, apiRegion, bucket string) *S3Composite {
+func NewS3Composite(accessKey, secretKey, sessionToken, endpointURL, apiRegion, filesBucket string) *S3Composite {
 	defaultResolver := endpoints.DefaultResolver()
 	s3CustomResolverFunc := func(
 		service,
@@ -35,5 +35,5 @@ func NewS3Composite(accessKey, secretKey, sessionToken, endpointURL, apiRegion, 
 		Region:           aws.String(apiRegion),
 		Credentials:      credentials.NewStaticCredentials(accessKey, secretKey, sessionToken),
 	}))
-	return &S3Composite{s3.New(sess), bucket}
+	return &S3Composite{s3.New(sess), filesBucket}
 }

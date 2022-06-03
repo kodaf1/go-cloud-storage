@@ -17,7 +17,7 @@ type FileComposite struct {
 
 func NewFileComposite(mongoComposite *MongoDBComposite, s3Composite *S3Composite, collection string) (*FileComposite, error) {
 	storage := file2.NewStorage(mongoComposite.db, collection)
-	s3 := file4.NewS3(s3Composite.instance, s3Composite.bucket)
+	s3 := file4.NewS3(s3Composite.instance, s3Composite.filesBucket)
 	service := file.NewService(storage, s3)
 	handler := file3.NewHandler(service)
 	return &FileComposite{
