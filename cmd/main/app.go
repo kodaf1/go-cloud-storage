@@ -18,7 +18,6 @@ import (
 )
 
 func main() {
-	logging.Init()
 	logger := logging.GetLogger()
 
 	logger.Info("logger initialized")
