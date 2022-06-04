@@ -52,10 +52,10 @@ func main() {
 		cfg.S3.Bucket,
 	)
 
-	logger.Info("user composite initializing")
+	logger.Info("files composite initializing")
 	filesComposite, err := composites.NewFileComposite(mongoDBC, s3C, cfg.MongoDB.FilesCollection)
 	if err != nil {
-		logger.Fatal("user composite failed")
+		logger.Fatal("files composite failed")
 	}
 	filesComposite.Handler.Register(router)
 
