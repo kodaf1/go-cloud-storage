@@ -53,7 +53,7 @@ func main() {
 	)
 
 	logger.Info("files composite initializing")
-	filesComposite, err := composites.NewFileComposite(mongoDBC, s3C, cfg.MongoDB.FilesCollection)
+	filesComposite, err := composites.NewFileComposite(mongoDBC, s3C, cfg.MongoDB.FilesCollection, cfg.S3.URL)
 	if err != nil {
 		logger.Fatal("files composite failed")
 	}

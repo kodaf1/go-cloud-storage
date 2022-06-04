@@ -34,6 +34,7 @@ type Config struct {
 		Endpoint     string `env:"S3_ENDPOINT"`
 		Region       string `env:"S3_REGION"`
 		Bucket       string `env:"S3_BUCKET"`
+		URL          string `env:"S3_URL"`
 	}
 }
 
