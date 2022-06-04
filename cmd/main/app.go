@@ -53,11 +53,11 @@ func main() {
 	)
 
 	logger.Info("user composite initializing")
-	userComposite, err := composites.NewFileComposite(mongoDBC, s3C, cfg.MongoDB.FilesCollection)
+	filesComposite, err := composites.NewFileComposite(mongoDBC, s3C, cfg.MongoDB.FilesCollection)
 	if err != nil {
 		logger.Fatal("user composite failed")
 	}
-	userComposite.Handler.Register(router)
+	filesComposite.Handler.Register(router)
 
 	listener, err := net.Listen("tcp", fmt.Sprintf("%s:%s", cfg.Listen.BindIP, cfg.Listen.Port))
 	if err != nil {
