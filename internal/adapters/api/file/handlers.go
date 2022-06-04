@@ -58,6 +58,7 @@ func (h *handler) UploadFile(w http.ResponseWriter, r *http.Request, params http
 	err := r.ParseMultipartForm(32 << 20)
 	if err != nil {
 		w.WriteHeader(400)
+		logging.GetLogger().Errorf("parse data error: %s", err.Error())
 		fmt.Fprint(w, "Incorrect data")
 		return
 	}
@@ -65,6 +66,8 @@ func (h *handler) UploadFile(w http.ResponseWriter, r *http.Request, params http
 	files, ok := r.MultipartForm.File["file"]
 	if !ok || len(files) == 0 {
 		w.WriteHeader(400)
+		logging.GetLogger().Errorf("parse data error")
+
 		fmt.Fprint(w, "Incorrect data")
 		return
 	}
